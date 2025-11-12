@@ -101,3 +101,5 @@ if __name__ == '__main__':
     # Por ejemplo, puedes crear un archivo vacío para la prueba:
     # touch data/pdfs/manual_tecnico_A.pdf
     index_data()
+
+#fin

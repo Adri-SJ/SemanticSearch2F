@@ -62,3 +62,5 @@ async def search_documents(request: SearchRequest):
     except Exception as e:
         print(f"Error al procesar la búsqueda: {e}")
         raise HTTPException(status_code=500, detail="Error interno al ejecutar la búsqueda.")
+    
+#fin del main
