@@ -1,0 +1,3 @@
+Hasta, esta version ya esta integrado todo y basicamnete ya hace las busquedas de forma semantica,
+basandose en los embenddings que habiasmos realizado anteriormente, y ya integra la parte de mostrar
+los mejores tres resultados.
