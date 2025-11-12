@@ -255,3 +255,4 @@ export default function Home() {
     </div>
   );
 }
+/* Fin de frontend/app/page.js */
