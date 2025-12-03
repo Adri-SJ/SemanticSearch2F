@@ -12,6 +12,14 @@ class SearchRequest(BaseModel):
     """Modelo para la petición de búsqueda híbrida."""
     query: str = Field(..., description="La consulta del usuario.")
     top_k: int = Field(5, description="Número de resultados a devolver (máximo 10).", le=10)
+    dork_filetype: str | None = Field(
+        None, description="Filtro opcional de tipo de archivo para los resultados Dork (por ejemplo, 'pdf')."
+    )
+    dork_results: int = Field(
+        5,
+        description="Número de resultados lexicográficos (Dork) a recuperar. Se recomienda un máximo de 10.",
+        le=10,
+    )
 
 # --- INICIALIZACIÓN ---
 
@@ -53,8 +61,10 @@ async def search_documents(request: SearchRequest):
     try:
         # Aquí se ejecuta la lógica de Qdrant, BERT, Redis y Google Dorks.
         results = search_engine.search(
-            query=request.query, 
-            top_k=request.top_k
+            query=request.query,
+            top_k=request.top_k,
+            dork_filetype=request.dork_filetype,
+            dork_results=request.dork_results,
         )
         
         return {"status": "success", "results": results}
