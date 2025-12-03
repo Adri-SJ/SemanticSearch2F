@@ -17,15 +17,15 @@ if not API_KEY or not CX_ID:
         "La búsqueda Dorks no podrá ejecutarse."
     )
 
-def execute_google_dork(query: str, dork_filetype: str = 'pdf', num_results: int = 3) -> list[dict]:
+def execute_google_dork(query: str, dork_filetype: str | None = None, num_results: int = 5) -> list[dict]:
     """
     Ejecuta una consulta Dork usando la API de Google Custom Search.
-    Utiliza la sintaxis de tu proyecto anterior.
+    Permite especificar opcionalmente un tipo de archivo y el número de resultados.
     """
     url = "https://www.googleapis.com/customsearch/v1"
     
-    # 1. Construir la consulta Dork: la API de Google maneja esto en el parámetro 'q'.
-    full_query = f"{query} filetype:{dork_filetype}"
+    # 1. Construir la consulta Dork: se agrega filetype solo si se especifica.
+    full_query = f"{query} filetype:{dork_filetype}" if dork_filetype else query
 
     params = {
         "key": API_KEY,

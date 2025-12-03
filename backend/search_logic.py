@@ -67,9 +67,9 @@ class SemanticSearchEngine:
             print(f"Advertencia: Fallo en Qdrant (Colección o Conexión): {e}")
             return [] # Devolvemos una lista vacía si Qdrant falla
 
-    def search(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
+    def search(self, query: str, top_k: int = 5, dork_filetype: str | None = None, dork_results: int = 5) -> List[Dict[str, Any]]:
         """Realiza búsqueda híbrida (Semántica + Dorks)."""
-        
+
         normalized_query = query.strip().lower()
         
         # 1. VERIFICACIÓN DE CACHE (Redis)
@@ -86,7 +86,7 @@ class SemanticSearchEngine:
         qdrant_results = self._perform_qdrant_search(query_vector, top_k)
         
         # B. Búsqueda Lexical (Google Dorks)
-        dork_results = execute_google_dork(query, dork_filetype='pdf', num_results=3)
+        dork_results = execute_google_dork(query, dork_filetype=dork_filetype, num_results=dork_results)
 
         # C. Unificación de Resultados
         final_results = qdrant_results + dork_results
