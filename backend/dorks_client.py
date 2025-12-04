@@ -25,7 +25,9 @@ def execute_google_dork(query: str, dork_filetype: str = 'pdf', num_results: int
     url = "https://www.googleapis.com/customsearch/v1"
     
     # 1. Construir la consulta Dork: la API de Google maneja esto en el parámetro 'q'.
-    full_query = f"{query} filetype:{dork_filetype}"
+    #full_query = f"{query} filetype:{dork_filetype}"
+    full_query = query if dork_filetype is None else f"{query} filetype:{dork_filetype}"
+
 
     params = {
         "key": API_KEY,

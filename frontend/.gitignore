@@ -39,3 +39,36 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+
+
+# BACKEND (Python / FastAPI / etc)
+# --------------------------------
+
+# Python cache
+backend/__pycache__/
+**/__pycache__/
+
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+backend/venv/
+env/
+backend/env/
+
+# Python env files
+backend/.env
+
+# Temporary files
+*.log
+*.sqlite3
+*.db
+
+# --------------------------------
+# OTRAS CARPETAS
+# --------------------------------
+frontend/lib/

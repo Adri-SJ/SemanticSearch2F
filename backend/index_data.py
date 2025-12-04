@@ -7,7 +7,7 @@ from qdrant_client import QdrantClient, models
 #--- CONFIGURACIÓN ---
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
-COLLECTION_NAME = "documentos tecnicos"
+COLLECTION_NAME = "documentos_tecnicos"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 VECTOR_SIZE = 384
 

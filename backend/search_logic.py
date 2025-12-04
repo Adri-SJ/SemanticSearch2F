@@ -23,13 +23,13 @@ class SemanticSearchEngine:
         
         try:
             self.redis_client.ping()
-            print("Redis: ✅ Conexión exitosa.")
+            print("Redis:  Conexión exitosa.")
         except Exception as e:
-            print(f"Redis: ❌ Error de conexión: {e}. El cache no funcionará.")
+            print(f"Redis:  Error de conexión: {e}. El cache no funcionará.")
             
         # 2. Conexión a Qdrant (NO CARGA EL MODELO AQUI PARA EVITAR FALLOS AL INICIO)
         self.qdrant_client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
-        print("Qdrant: ✅ Cliente inicializado (La colección se verifica en la búsqueda).")
+        print("Qdrant: Cliente inicializado (La colección se verifica en la búsqueda).")
 
         # El modelo BERT se carga LENTAMENTE solo una vez en la función search (o aquí si es estable)
         self.model: SentenceTransformer = None
@@ -75,7 +75,7 @@ class SemanticSearchEngine:
         # 1. VERIFICACIÓN DE CACHE (Redis)
         cached_result = self.redis_client.get(normalized_query)
         if cached_result:
-            print("Redis: 🚀 Hit de cache. Devolviendo resultados al instante.")
+            print("Redis:  Hit de cache. Devolviendo resultados al instante.")
             return json.loads(cached_result)
 
         # 2. Lógica Híbrida
@@ -86,7 +86,9 @@ class SemanticSearchEngine:
         qdrant_results = self._perform_qdrant_search(query_vector, top_k)
         
         # B. Búsqueda Lexical (Google Dorks)
-        dork_results = execute_google_dork(query, dork_filetype='pdf', num_results=3)
+        #dork_results = execute_google_dork(query, dork_filetype='pdf', num_results=3)
+        dork_results = execute_google_dork(query, dork_filetype=None, num_results=10)
+
 
         # C. Unificación de Resultados
         final_results = qdrant_results + dork_results
